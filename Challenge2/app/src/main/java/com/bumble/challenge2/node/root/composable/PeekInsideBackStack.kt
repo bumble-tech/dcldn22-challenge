@@ -85,8 +85,8 @@ private fun <T> BackStackElement(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = element.targetState.toString()
-                .replace("DESTROYED", "DESTR")
+            text = element.targetState.javaClass.simpleName.toString()
+                .replace("Destroyed", "DESTR")
                 .uppercase(Locale.getDefault()),
             color = MaterialTheme.colors.onSurface,
             fontSize = 9.sp,
