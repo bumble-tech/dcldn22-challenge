@@ -14,6 +14,8 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.bumble.appyx.core.node.ParentNode
 import com.bumble.appyx.navmodel.backstack.BackStack
+import com.bumble.appyx.navmodel.backstack.operation.pop
+import com.bumble.appyx.navmodel.backstack.operation.push
 import com.bumble.challenge1.composable.CustomButton
 import com.bumble.challenge1.composable.LogoHeader
 import com.bumble.challenge1.composable.PeekInsideBackStack
@@ -85,11 +87,15 @@ class RootNode(
                 .fillMaxWidth()
                 .padding(2.dp)
         ) {
-            CustomButton(onClick = { TODO("(1) perform push operation") }) {
+            CustomButton(onClick = { backStack.pop() }) {
                 Text("Pop")
+                TODO("(1) perform push operation")
             }
-            CustomButton(onClick = { TODO("(2) perform pop operation") }) {
+            CustomButton(onClick = { backStack.push(NavTarget.Child(getBackstackIndex()))  }) {
+                //check that BackStack has a push method
+                //maybe use backStack??
                 Text("Push")
+                TODO("(2) perform pop operation")
             }
         }
     }
