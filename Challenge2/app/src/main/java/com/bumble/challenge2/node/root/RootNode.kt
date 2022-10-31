@@ -102,8 +102,13 @@ class RootNode(
                 Text("Push")
             }
             CustomButton(onClick = { backStack.toggleFreeze() }) {
-                Text("Freeze")
-                // TODO "(6) Text should change when button is toggled. Use CustomBackStack's elements property, apply some logic and transform to compose state using androidx.compose.runtime.collectAsState"
+                // TODO "(6) Text should change when button is toggled. Use CustomBackStack's elements property,
+                //  apply some logic and transform to compose state using androidx.compose.runtime.collectAsState"
+                val elements = backStack.elements.collectAsState()
+                when(elements.value.last().targetState){
+                    CustomBackStack.State.Frozen -> Text("Unfreeze")
+                    else -> Text("Freeze")
+                }
             }
         }
     }

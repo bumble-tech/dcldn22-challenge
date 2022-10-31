@@ -28,7 +28,7 @@ class ExplodingTransitionHandler<NavTarget>(
     private val created = Props(alpha = 0f)
     private val active = created.copy(alpha = 1f)
     private val stashed = created.copy(alpha = 0f)
-    private val destroyed = stashed // TODO: "(3) scale should be 2f"
+    private val destroyed = stashed.copy(scale = 2f) // TODO: "(3) scale should be 2f"
 
     private fun BackStack.State.toProps(): Props =
         when (this) {

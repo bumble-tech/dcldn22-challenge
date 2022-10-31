@@ -10,14 +10,20 @@ import kotlinx.parcelize.Parcelize
 class ToggleFreeze<T : Any> : CustomBackStackOperation<T> {
 
     override fun isApplicable(elements: NavElements<T, CustomBackStack.State>): Boolean =
-        elements.any { TODO("(1) Define applicability logic") }
+        elements.any {
+            when(it.targetState) {
+                is CustomBackStack.State.Destroyed -> false
+                else -> true
+                //is CustomBackStack.State.Created -> true
 
+            }  //TODO("(1) Define applicability logic") }
+        }
 
     override fun invoke(elements: NavElements<T, CustomBackStack.State>): NavElements<T, CustomBackStack.State> =
         elements.transitionTo {
             when (it.targetState) {
-                is Active -> TODO("(2) change the target state")
-                is Frozen -> TODO("(3) change the target state")
+                is Active -> Frozen //TODO("(2) change the target state")
+                is Frozen -> Active //TODO("(3) change the target state")
                 else -> it.targetState
             }
         }
