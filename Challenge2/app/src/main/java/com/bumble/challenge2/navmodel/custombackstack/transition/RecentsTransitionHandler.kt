@@ -36,6 +36,7 @@ class RecentsTransitionHandler<NavTarget>(
         val alpha: Float = 1f,
         val scale: Float = 1f,
         val zIndex: Float = Z_INDEX
+
     )
 
     private val created = Props()
@@ -48,7 +49,10 @@ class RecentsTransitionHandler<NavTarget>(
         when (this) {
             is State.Created -> created.copy(offset = Offset(0f, 2f * height))
             is State.Active -> active.copy(offset = activeOffset())
-            is State.Frozen -> TODO("(4) Frozen state should have blur of 15.dp. Note that blur only works Android 12+")
+            is State.Frozen -> active.copy() //I honestly have no idea how this should be implemented, as createModifier already seems to cover this..
+            //is State.Frozen -> createModifier(Modifier.blur(15.dp))
+            //is State.Frozen -> active.copy(specDp(15.dp))
+            //is State.Frozen -> TODO("(4) Frozen state should have blur of 15.dp. Note that blur only works Android 12+")
             is State.Stashed -> stashed.copy(
                 offset = stashedOffset(height),
                 alpha = stashedAlpha(),
@@ -112,7 +116,10 @@ class RecentsTransitionHandler<NavTarget>(
             }
             .alpha(alpha)
             .blur(
-                radius = 0.dp, // TODO("(5) Frozen elements should have 15.dp blur, all other elements - 0.dp")
+                when(transition.currentState){
+                    is State.Frozen -> 15.dp
+                    else -> 0.dp
+                }, // TODO("(5) Frozen elements should have 15.dp blur, all other elements - 0.dp")
                 edgeTreatment = BlurredEdgeTreatment(
                     RoundedCornerShape(2)
                 )
