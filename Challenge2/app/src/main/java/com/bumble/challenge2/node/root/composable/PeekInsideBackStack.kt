@@ -53,7 +53,7 @@ fun <T : Any> PeekInsideBackStack(
         modifier = modifier
             .fillMaxWidth()
             .background(if (isSystemInDarkTheme()) Color.DarkGray else Color.LightGray)
-            .padding(12.dp),
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         elements.value.forEach { element ->
